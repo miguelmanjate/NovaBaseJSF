@@ -1,6 +1,10 @@
 package mz.com.nova.controler;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -10,6 +14,7 @@ import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 import mz.com.nova.dao.CidadeDAO;
 import mz.com.nova.dao.FabricanteDAO;
@@ -117,6 +122,17 @@ public class ProdutoController implements Serializable {
 	}
 
 	public void upload(FileUploadEvent evento) {
-          System.out.println("Chamou o metado");
+		try {
+			
+			UploadedFile arquivoUpload = evento.getFile();
+			Path arquivoTemp = Files.createTempFile(null, null);
+			Files.copy(arquivoUpload.getInputstream() , arquivoTemp, StandardCopyOption.REPLACE_EXISTING);
+			produto.setCaminho(arquivoTemp.toString());
+			Messages.addGlobalInfo("Caminho :"+produto.getCaminho());
+			System.out.println("Caminho :"+produto.getCaminho());
+		} catch (IOException e) {
+		Messages.addGlobalError("Ocrreu um erro ao tentar realizar upload de arquivo***");
+		e.printStackTrace();
+		}
 	}
 }

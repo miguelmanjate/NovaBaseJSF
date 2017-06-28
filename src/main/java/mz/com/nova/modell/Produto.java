@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class Produto extends GenerecModell {
@@ -30,6 +31,9 @@ public class Produto extends GenerecModell {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Fabricante fabricante;
+	
+	@Transient
+	private String caminho;
 
 	public String getDescricao() {
 		return descricao;
@@ -63,6 +67,11 @@ public class Produto extends GenerecModell {
 		this.fabricante = fabricante;
 	}
 	
-	
+	public String getCaminho() {
+		return caminho;
+	}
+	public void setCaminho(String caminho) {
+		this.caminho = caminho;
+	}
 
 }

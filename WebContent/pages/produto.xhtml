@@ -116,7 +116,8 @@
 				</p:selectOneMenu>
 
                 <p:outputLabel for="foto" value="Foto" />
-                <p:fileUpload id="foto" mode="advanced" fileUploadListener="#{produtoController.upload}"/>
+                <p:fileUpload id="foto" mode="advanced" fileUploadListener="#{produtoController.upload}"
+                update=":mensagem"/>
 			</h:panelGrid>
 			<p:panelGrid>
 				<p:commandButton value="Salver"
